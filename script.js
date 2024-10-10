@@ -79,17 +79,21 @@ function generateRGB(num){
    
    return [r,g,b];
 }
-function generateShade([r,g,b],val){
-   
-   let rhex=(r-=val).toString(16).padStart(2,'0');
-   let ghex=(g-=val).toString(16).padStart(2,'0');
-   let bhex=(b-=val).toString(16).padStart(2,'0');
-   return `#${rhex}${ghex}${bhex}`
+function generateShade([r, g, b], val) {
+   let rn = Math.max(0, Math.min(255,r - val));
+   let gn = Math.max(0, Math.min(255,g - val));
+   let bn = Math.max(0, Math.min(255,b - val));
 
-}
+   
+   let rhex = rn.toString(16).padStart(2, '0');  
+   let ghex = gn.toString(16).padStart(2, '0');  
+   let bhex = bn.toString(16).padStart(2, '0'); 
+
+   return `#${rhex}${ghex}${bhex}`; 
+} 
 function generatePalette(value){
    let [r,g,b]=generateRGB(value);
-   let hex=generateShade([r,g,b],-15)
+   let hex=generateShade([r,g,b],-30)
    shade1.style.backgroundColor =hex;
    codeshade1.textContent=hex;
 
@@ -101,7 +105,7 @@ function generatePalette(value){
    shade3.style.backgroundColor =hex;
    codeshade3.textContent=hex;
 
-   hex=generateShade([r,g,b],15)
+   hex=generateShade([r,g,b],40)
    shade4.style.backgroundColor =hex;
    codeshade4.textContent=hex;
 
